@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>杨平安 · 前端开发</title>
+<style>
+  :root {
+    --bg: #eef0fa;
+    --card: #ffffff;
+    --text: #1f2330;
+    --text-2: #3a3f55;
+    --muted: #8a8fa3;
+    --border: #e6e7ef;
+    --brand: #6c5ce7;
+    --brand-2: #7a6cff;
+    --brand-soft: #eeeaff;
+    --brand-soft-2: #f5f2ff;
+    --tag-border: #e3e4ed;
+    --shadow: 0 2px 12px rgba(30, 30, 80, 0.05);
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
+                 "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 1080px;
+    margin: 20px auto;
+    padding: 0 20px 60px;
+  }
+
+  /* ---------- Header ---------- */
+  .header {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 20px 26px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 220px; height: 220px;
+    background: linear-gradient(135deg, #d8d2ff, #b6acff);
+    border-radius: 24px;
+    transform: rotate(20deg);
+    opacity: .55;
+    z-index: 0;
+  }
+  .avatar {
+    width: 78px; height: 78px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c6bfff, #7a6cff);
+    flex-shrink: 0;
+    z-index: 1;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px var(--brand-soft);
+  }
+  .header-info { z-index: 1; flex: 1; }
+  .header-info .name-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 8px;
+  }
+  .header-info h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .badge {
+    background: var(--brand-soft);
+    color: var(--brand);
+    font-size: 12px;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+  .contact {
+    color: #5b6075;
+    font-size: 13px;
+    display: flex; flex-wrap: wrap;
+    column-gap: 22px; row-gap: 4px;
+    align-items: center;
+  }
+  .contact span { display: inline-flex; align-items: center; gap: 6px; }
+  .contact .ico-sm { color: var(--brand); }
+
+  /* ---------- Top 4 cards ---------- */
+  .top-grid {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 16px 16px 14px;
+    box-shadow: var(--shadow);
+  }
+  .card h3 {
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card h3 .ico {
+    width: 24px; height: 24px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, var(--brand-2), var(--brand));
+    color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .card h3 .ico svg { width: 14px; height: 14px; }
+
+  .card ul.dotted {
+    list-style: none;
+    padding: 0; margin: 0;
+    color: var(--text-2);
+    font-size: 12.5px;
+  }
+  .card ul.dotted li {
+    position: relative;
+    padding-left: 14px;
+    margin-bottom: 6px;
+    line-height: 1.55;
+  }
+  .card ul.dotted li::before {
+    content: "";
+    position: absolute;
+    left: 2px; top: 8px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--brand);
+  }
+
+  .edu-block { display: flex; flex-direction: column; gap: 6px; }
+  .edu-school {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text);
+    letter-spacing: .5px;
+  }
+  .edu-major {
+    color: var(--text-2);
+    font-size: 12.5px;
+    position: relative;
+    padding-left: 10px;
+  }
+  .edu-major::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 3px; height: 12px;
+    background: var(--brand);
+    border-radius: 2px;
+  }
+  .edu-degree {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    background: var(--brand-soft);
+    color: var(--brand);
+    font-size: 11.5px;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+  .edu-divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+    margin: 4px 0 2px;
+  }
+  .edu-date {
+    color: var(--text-2);
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: .3px;
+  }
+
+  .tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .tag {
+    background: #fff;
+    color: var(--text-2);
+    border: 1px solid var(--tag-border);
+    border-radius: 6px;
+    padding: 3px 9px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .tag.brand {
+    background: var(--brand-soft);
+    color: var(--brand);
+    border-color: transparent;
+  }
+
+  .quote {
+    color: var(--text-2);
+    font-size: 13px;
+    line-height: 1.75;
+    position: relative;
+    padding-right: 14px;
+  }
+  .quote::after {
+    content: "”";
+    position: absolute;
+    right: -2px; bottom: -48px;
+    font-size: 56px;
+    color: var(--brand);
+    opacity: .28;
+    line-height: 1;
+    font-family: Georgia, serif;
+    pointer-events: none;
+  }
+
+  /* ---------- Section title ---------- */
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 26px 0 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-title::before {
+    content: "";
+    width: 4px; height: 18px;
+    background: var(--brand);
+    border-radius: 2px;
+  }
+
+  /* ---------- Project card ---------- */
+  .project {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+    display: grid;
+    grid-template-columns: 4fr 6fr;
+    gap: 22px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .project-head {
+    display: flex; align-items: center;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-right: 8px;
+  }
+  .project-title {
+    font-size: 15px; font-weight: 600;
+    line-height: 1.5;
+    display: flex; align-items: baseline; gap: 8px;
+    flex-wrap: nowrap;
+    min-width: 0;
+  }
+  .project-title .title-text {
+    white-space: normal;
+    word-break: break-word;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .project-title .star {
+    color: #f5b400;
+    font-size: 16px;
+    line-height: 1;
+    flex-shrink: 0;
+    transform: translateY(1px);
+  }
+  .project-title .ai-pill {
+    flex-shrink: 0;
+  }
+  .project-title .ai-pill {
+    background: linear-gradient(135deg, #7a6cff, #4f7cff);
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+  .project-date {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    z-index: 2;
+    font-size: 12px;
+    display: inline-flex; align-items: center; gap: 4px;
+    background: var(--brand-soft);
+    color: var(--brand);
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .project-body { font-size: 12.5px; color: var(--text-2); }
+  .project-body .stack-row {
+    display: flex; align-items: center; flex-wrap: wrap;
+    gap: 6px;
+    margin: 6px 0 10px;
+  }
+  .project-body .stack-label {
+    font-weight: 600; color: var(--text);
+    margin-right: 2px;
+  }
+  .project-body h4 {
+    margin: 10px 0 4px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .project-body p { margin: 2px 0; }
+  .project-body ul {
+    padding-left: 16px;
+    margin: 4px 0;
+  }
+  .project-body ul li { margin-bottom: 2px; line-height: 1.55; }
+
+  /* ---------- Shots ---------- */
+  .shots {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    align-content: stretch;
+    margin-top: 32px;
+  }
+  .shots.shots-single {
+    grid-template-columns: 1fr;
+  }
+  .shots.shots-2x2-mobile {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 12px;
+    height: 100%;
+    align-self: stretch;
+  }
+  .shots.shots-2x2-mobile .shot {
+    aspect-ratio: auto;
+    background: #f4f5fb;
+    height: 100%;
+  }
+  .shots.shots-2x2-mobile .shot img {
+    object-fit: contain;
+    padding: 6px;
+  }
+  .shots.shots-2x2-mobile .shot-wrap {
+    height: 100%;
+    min-height: 0;
+  }
+  .shots.shots-2col {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .shots.shots-2col .shot {
+    aspect-ratio: 4 / 3;
+    background: #f4f5fb;
+  }
+  .shots.shots-2col .shot img {
+    object-fit: contain;
+    padding: 4px;
+  }
+  .shot-wrap {
+    display: flex; flex-direction: column;
+    gap: 6px;
+  }
+  .shot {
+    aspect-ratio: 9 / 16;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, #e7e3ff, #c8bfff);
+    cursor: zoom-in;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .shot:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(30, 30, 80, 0.12);
+  }
+  .shot:has(img) { cursor: zoom-in; }
+  .shot:not(:has(img)) { cursor: default; }
+  .shot:not(:has(img)):hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox {
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+  }
+  .lightbox::backdrop {
+    background: rgba(15, 18, 35, 0.85);
+    backdrop-filter: blur(4px);
+  }
+  .lightbox[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox img {
+    max-width: 92vw;
+    max-height: 92vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    cursor: zoom-out;
+  }
+  .lightbox-close {
+    position: fixed;
+    top: 20px; right: 24px;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s;
+  }
+  .lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  .shot.wide { aspect-ratio: 4 / 3; }
+  .shot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+  .shot-caption {
+    display: none;
+  }
+
+  /* 项目 1 配色 */
+  .p1-1 { background: linear-gradient(160deg, #f6f7fb 0%, #e7e9f2 100%); }
+  .p1-2 { background: linear-gradient(160deg, #1f2436 0%, #2a3050 100%); }
+  .p1-3 { background: linear-gradient(160deg, #f5f6fa 0%, #e3e6f0 100%); }
+  .p1-4 { background: linear-gradient(160deg, #ffffff 0%, #ebeef7 100%); }
+
+  /* 项目 2 配色 */
+  .p2-1 { background: linear-gradient(160deg, #fff3d6 0%, #ffe1a8 100%); }
+  .p2-2 { background: linear-gradient(160deg, #ffd2c2 0%, #ff9d7a 100%); }
+  .p2-3 { background: linear-gradient(160deg, #fff5dc 0%, #ffe2a0 100%); }
+  .p2-4 { background: linear-gradient(160deg, #ffe4d0 0%, #ffb98c 100%); }
+
+  /* 项目 3 配色 */
+  .p3-1 { background: linear-gradient(160deg, #1d2230 0%, #2c334a 100%); }
+  .p3-2 { background: linear-gradient(160deg, #f4f6fb 0%, #e2e6f1 100%); }
+  .p3-3 { background: linear-gradient(160deg, #2b2f55 0%, #4b4f80 100%); }
+  .p3-4 { background: linear-gradient(160deg, #1c2030 0%, #353b58 100%); }
+
+  /* 项目 4 配色 */
+  .p4-1 { background: linear-gradient(160deg, #f6f7fb 0%, #e7e9f2 100%); }
+  .p4-2 { background: linear-gradient(160deg, #fafbff 0%, #e9ecf6 100%); }
+  .p4-3 { background: linear-gradient(160deg, #f0f2fa 0%, #dfe3f0 100%); }
+  .p4-4 { background: linear-gradient(160deg, #f8faff 0%, #e6ebf8 100%); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .top-grid { grid-template-columns: repeat(2, 1fr); }
+    .project { grid-template-columns: 1fr; }
+    .shots { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 520px) {
+    .top-grid { grid-template-columns: 1fr; }
+    .shots { grid-template-columns: repeat(2, 1fr); }
+    .header-info h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="avatar"></div>
+    <div class="header-info">
+      <div class="name-row">
+        <h1>杨平安</h1>
+        <span class="badge">前端开发</span>
+      </div>
+      <div class="contact">
+        <span><span class="ico-sm">📞</span> 19836781920</span>
+        <span><span class="ico-sm">✉</span> y19836781920@outlook.com</span>
+        <span><span class="ico-sm">🔗</span> https://github.com/yujiangan</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Top 4 cards -->
+  <section class="top-grid">
+    <div class="card">
+      <h3>
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 4.84L20 7.27l-3.91 3.81.92 5.39L12 13.9l-5.01 2.57.92-5.39L4 7.27l5.61-.43L12 2z"/></svg>
+        </span>
+        专业技能亮点
+      </h3>
+      <ul class="dotted">
+        <li>具备 Vue3 / React 全栈开发能力，熟悉 TypeScript 工程化与 Node.js CLI 开发</li>
+        <li>深入实践 LLM 应用工程：ReAct Agent、Tool Calling、SSE 流式输出、多模态协同</li>
+        <li>熟悉 ESLint、Prettier、lint-staged + GitHub Actions CI/CD 自动化工程</li>
+        <li>独立完成多个项目从产品需求、技术设计到前后端落地的全流程</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm0 13l-7-3.82v3L12 19l7-3.82v-3L12 16z"/></svg>
+        </span>
+        教育经历
+      </h3>
+      <div class="edu-block">
+        <div class="edu-school">河南农业大学</div>
+        <div class="edu-major">数据科学与大数据技术</div>
+        <span class="edu-degree">本科</span>
+        <div class="edu-divider"></div>
+        <div class="edu-date">2023-09 ~ 2027-06</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </span>
+        技术栈概览
+      </h3>
+      <div class="tags">
+        <span class="tag brand">TypeScript</span>
+        <span class="tag brand">React</span>
+        <span class="tag brand">Vue3</span>
+        <span class="tag brand">Node.js</span>
+        <span class="tag brand">SSE</span>
+        <span class="tag brand">ReAct Agent</span>
+        <span class="tag brand">Nitro</span>
+        <span class="tag brand">自动化/脚手架</span>
+        <span class="tag brand">Monorepo</span>
+        <span class="tag brand">GitHub Actions</span>
+        <span class="tag brand">Vercel</span>
+        <span class="tag brand">CI/CD</span>
+        <span class="tag brand">ESLint</span>
+        <span class="tag brand">Prettier</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 00-4 12.74V17a1 1 0 001 1h6a1 1 0 001-1v-2.26A7 7 0 0012 2zM9 21a1 1 0 001 1h4a1 1 0 001-1v-1H9v1z"/></svg>
+        </span>
+        个人理念
+      </h3>
+      <div class="quote">
+        代码是解决问题的工具，工程化是价值的保障，AI 让未来的开发更智能。
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <h2 class="section-title">项目经历</h2>
+
+  <!-- Project 1 -->
+  <article class="project">
+    <div class="project-date">2026-03 ~ 至今</div>
+    <div class="project-text">
+      <div class="project-head">
+        <div class="project-title">
+          <span class="star">★</span>
+          <span class="title-text">PersonaHub — AI 驱动的 GitHub 用户画像分析工具</span>
+          <span class="ai-pill">AI</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="stack-row">
+          <span class="stack-label">技术栈：</span>
+          <span class="tag brand">TypeScript</span>
+          <span class="tag brand">React 18</span>
+          <span class="tag brand">Nitro</span>
+          <span class="tag brand">MiniMax</span>
+          <span class="tag brand">ReAct Agent</span>
+          <span class="tag brand">Tool Calling</span>
+          <span class="tag brand">SSE</span>
+        </div>
+        <h4>项目背景：</h4>
+        <p>输入任意 GitHub 用户 ID，基于 LLM 与 ReAct 智能体自动分析其 timeline / repos / stars，几秒钟生成结构化技术画像报告，面向 HR 筛选、候选人评估、社区初识等场景</p>
+        <h4>核心工作：</h4>
+        <ul>
+          <li>独立完成 PRD、技术设计、前后端实现：撰写产品需求与技术设计文档（PRD / TECH-DESIGN），明确功能边界、异常路径与验收标准</li>
+          <li>设计并实现 ReAct Agent 双阶段循环：工具阶段由 MiniMax 流式决策调用 GitHub 工具集，数据齐备后进入报告阶段按 Prompt 流式生成 Markdown 报告</li>
+          <li>构建 Tool Calling 工程：定义工具 JSON Schema、抽象 dispatch 调度层，封装 get_profile / get_repos / get_events / get_stars 四个 GitHub 工具</li>
+          <li>设计完整 SSE 事件协议（thinking_chunk / tool_start / tool_end / observation / report_chunk / report_done / error / done），前端 EventSource 命名事件分发，思考流与报告流互不打架</li>
+          <li>基于 Nitro 3 搭建后端 API，封装 GitHubClient：自动分页（最多 1000 条事件）、AbortController 10s 单次超时、403 / 5xx 指数退避重试、X-RateLimit-Remaining 区分限流类型</li>
+          <li>前端 React 18 + VitePlus，自定义 useAnalysis Hook 管理 SSE 连接，AgentStream 组件实时渲染思考过程与 Markdown 报告</li>
+        </ul>
+        <h4>技术亮点：</h4>
+        <ul>
+          <li>深度实践 LLM 应用工程：双阶段 Agent 编排、Tool Calling 工程、结构化输出（PRD 四章对齐）、流式协议设计，具备完整的 AI Agent 产品落地能力</li>
+          <li>系统级容错与降级：任一数据源失败不中断整次分析（profile / repos / events / stars 任一为空仍继续生成报告），全流程 60s 超时保护</li>
+          <li>工程化细节扎实：单次请求 10s 超时 + AbortController、429/403/5xx 重试、字段筛选降低内存、流式不积累大数据</li>
+          <li>前后端类型共享（src/shared/types.ts）+ 严格 TypeScript，跨端契约强一致</li>
+          <li>Vercel 一键部署（Nitro vercel preset），代码 90.1% TypeScript 占比</li>
+        </ul>
+      </div>
+    </div>
+    <div class="shots shots-2col">
+      <div class="shot-wrap"><div class="shot wide p1-1"><img src="./images/persona-1.png" alt="仪表盘概览" /></div><div class="shot-caption">仪表盘概览</div></div>
+      <div class="shot-wrap"><div class="shot wide p1-2"><img src="./images/persona-2.png" alt="分析运行中" /></div><div class="shot-caption">分析运行中</div></div>
+      <div class="shot-wrap"><div class="shot wide p1-3"><img src="./images/persona-3.png" alt="用户画像结果" /></div><div class="shot-caption">用户画像结果</div></div>
+      <div class="shot-wrap"><div class="shot wide p1-4"><img src="./images/persona-4.png" alt="技术栈分析" /></div><div class="shot-caption">技术栈分析</div></div>
+    </div>
+  </article>
+
+  <!-- Project 2 -->
+  <article class="project">
+    <div class="project-date">2026-01 ~ 2026-03</div>
+    <div class="project-text">
+      <div class="project-head">
+        <div class="project-title">
+          <span class="star">★</span>
+          <span class="title-text">食刻 Timetaste — AI 美食推荐微信小程序</span>
+          <span class="ai-pill">AI</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="stack-row">
+          <span class="stack-label">技术栈：</span>
+          <span class="tag brand">微信小程序</span>
+          <span class="tag brand">TypeScript</span>
+          <span class="tag brand">通义千问 DashScope</span>
+          <span class="tag brand">qwen-turbo</span>
+          <span class="tag brand">qwen3-vl-plus</span>
+          <span class="tag brand">z-image-turbo</span>
+        </div>
+        <h4>项目背景：</h4>
+        <p>解决"今天吃什么"的日常决策难题，基于通义千问大模型打造的 AI 美食推荐小程序，结合时间、位置、用户偏好实现千人千面的智能推荐</p>
+        <h4>核心工作：</h4>
+        <ul>
+          <li>设计并实现完整的 AI 上下文工程：根据当前时间段、地理位置、最近 5 条采纳历史、已上传菜单动态构建 Prompt，实现个性化推荐</li>
+          <li>接入通义千问多模态能力：qwen-turbo 文本推荐菜品、qwen3-vl-plus 视觉识别菜单图片、z-image-turbo 生成菜品配图，三模型协同</li>
+          <li>抽象通用 callAI 调用层，支持文本 / 视觉双模式，统一处理 messages 拼装、动态 temperature、超时与错误降级</li>
+          <li>实现 AI 输出的 JSON Schema 约束与容错解析（直接解析 → 正则提取 → 友好报错），保证小程序端稳定取数</li>
+          <li>设计菜品图本地缓存（wx.setStorageSync）与"换一换"排除已推荐菜品逻辑，降低 API 调用成本与等待时间</li>
+          <li>接入 wx.reportEvent 埋点体系，跟踪摇一摇、采纳、识别、保存等关键用户行为</li>
+        </ul>
+        <h4>技术亮点：</h4>
+        <ul>
+          <li>深度实践 LLM 应用工程：上下文工程、Prompt 设计、结构化输出、多模态协同，具备完整的 AI 产品落地经验</li>
+          <li>合理运用动态 temperature（视觉识别 0.1 严格 / 文本推荐 0.7 创意），针对不同任务优化模型表现</li>
+          <li>TypeScript 严格类型 + 模块化设计，API、埋点、业务逻辑分层清晰，易扩展易维护</li>
+          <li>关注成本与体验：AI 生图缓存命中、无重复推荐、超时分级控制（15s / 30s / 60s）</li>
+        </ul>
+      </div>
+    </div>
+    <div class="shots shots-2x2-mobile">
+      <div class="shot-wrap"><div class="shot p2-1"><img src="./images/timetaste-1.jpg" alt="首页随机推荐" /></div><div class="shot-caption">首页随机推荐</div></div>
+      <div class="shot-wrap"><div class="shot p2-2"><img src="./images/timetaste-2.jpg" alt="结果展示页" /></div><div class="shot-caption">结果展示页</div></div>
+      <div class="shot-wrap"><div class="shot p2-3"><img src="./images/timetaste-3.jpg" alt="星品列表" /></div><div class="shot-caption">星品列表</div></div>
+      <div class="shot-wrap"><div class="shot p2-4"><img src="./images/timetaste-4.jpg" alt="分享页" /></div><div class="shot-caption">分享页</div></div>
+    </div>
+  </article>
+
+  <!-- Project 3 -->
+  <article class="project">
+    <div class="project-date">2025-09 ~ 2025-10</div>
+    <div class="project-text">
+      <div class="project-head">
+        <div class="project-title">
+          <span class="star">★</span>
+          <span class="title-text">Imagedown — 图片批量下载工具</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="stack-row">
+          <span class="stack-label">技术栈：</span>
+          <span class="tag brand">Node.js</span>
+          <span class="tag brand">TypeScript</span>
+          <span class="tag brand">Fetch API</span>
+          <span class="tag brand">Yargs</span>
+          <span class="tag brand">GitHub Actions</span>
+        </div>
+        <h4>项目背景：</h4>
+        <p>基于 Node.js 自研的图片爬虫 CLI 工具，已发布至 npm（@yujiangan/imagedown），可通过 npx 一行命令批量下载网页图片</p>
+        <h4>核心工作：</h4>
+        <ul>
+          <li>使用 Node.js + TypeScript 搭建 CLI，基于 Yargs 设计参数解析与帮助信息</li>
+          <li>使用 Node.js 原生 Fetch API 抓取网页与图片资源，支持自定义 User-Agent 提升站点兼容性</li>
+          <li>实现可配置并发下载（-c 参数），自动识别 JPG/PNG/GIF/WebP/SVG 等格式与 Data URI</li>
+          <li>配置 GitHub Actions 实现 tag 触发的自动化构建与 npm 发布流程</li>
+        </ul>
+        <h4>技术亮点：</h4>
+        <ul>
+          <li>深入使用 Node.js 异步与并发模型，下载速度随并发数线性提升、稳定可控</li>
+          <li>TypeScript 严格类型规范 + 模块化设计，代码可维护性强、易扩展</li>
+          <li>完整的 npm 包工程化：bin 入口、版本管理、CHANGELOG 与多次稳定发布</li>
+        </ul>
+      </div>
+    </div>
+    <div class="shots shots-single">
+      <div class="shot-wrap"><div class="shot wide p3-1"><img src="./images/imagedown-1.png" alt="下载速度（CLI）" /></div><div class="shot-caption">下载速度（CLI）</div></div>
+    </div>
+  </article>
+
+
+</div>
+
+<dialog class="lightbox" id="lightbox">
+  <button class="lightbox-close" type="button" aria-label="关闭">×</button>
+  <img alt="" />
+</dialog>
+
+<script>
+  (function () {
+    const dialog = document.getElementById("lightbox");
+    const dialogImg = dialog.querySelector("img");
+    const closeBtn = dialog.querySelector(".lightbox-close");
+
+    document.querySelectorAll(".shot img").forEach((img) => {
+      img.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dialogImg.src = img.src;
+        dialogImg.alt = img.alt || "";
+        dialog.showModal();
+      });
+    });
+
+    const handleClose = () => dialog.close();
+    closeBtn.addEventListener("click", handleClose);
+    dialogImg.addEventListener("click", handleClose);
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) handleClose();
+    });
+  })();
+</script>
+</body>
+</html>
