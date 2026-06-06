@@ -124,7 +124,7 @@
   .top-grid {
     margin-top: 14px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 14px;
   }
   .card {
@@ -286,11 +286,12 @@
     position: relative;
   }
   .project-head {
-    display: flex; align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     margin-bottom: 6px;
-    flex-wrap: wrap;
-    gap: 6px;
-    padding-right: 8px;
+    gap: 4px;
+    padding-right: 110px;
   }
   .project-title {
     font-size: 18px; font-weight: 600;
@@ -359,10 +360,19 @@
     margin: 4px 0;
   }
   .project-body ul li { margin-bottom: 2px; line-height: 1.55; }
+  .project-link {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--text-2);
+  }
+  .project-link a,
   .project-body a {
     color: var(--brand);
-    font-weight: 500;
     text-decoration: none;
+  }
+  .philosophy-card {
+    margin-top: 14px;
   }
 
   /* ---------- Shots ---------- */
@@ -553,8 +563,8 @@
       margin: 10mm;
     }
 
-    /* 打印视口常 <900px，强制保持桌面 Header / 三卡布局 */
-    .top-grid { grid-template-columns: repeat(3, 1fr) !important; }
+    /* 打印：Header 横排；技能 / 技术栈各占一行 */
+    .top-grid { grid-template-columns: 1fr !important; }
     .header { flex-wrap: nowrap !important; }
     .header-edu {
       border-left: 1px solid var(--border) !important;
@@ -624,7 +634,7 @@
     </div>
   </header>
 
-  <!-- Top 3 cards -->
+  <!-- Top 2 cards -->
   <section class="top-grid">
     <div class="card">
       <h3>
@@ -661,18 +671,6 @@
         <span class="tag brand">Vercel</span>
       </div>
     </div>
-
-    <div class="card">
-      <h3>
-        <span class="ico">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 00-4 12.74V17a1 1 0 001 1h6a1 1 0 001-1v-2.26A7 7 0 0012 2zM9 21a1 1 0 001 1h4a1 1 0 001-1v-1H9v1z"/></svg>
-        </span>
-        个人理念
-      </h3>
-      <div class="quote">
-        <strong>代码</strong>是解决问题的工具，<strong>工程化</strong>是价值的保障，<strong>AI</strong> 让未来的开发更智能。
-      </div>
-    </div>
   </section>
 
   <!-- Projects -->
@@ -688,6 +686,7 @@
           <span class="title-text">PersonaHub — AI 驱动的 GitHub 用户画像分析工具</span>
           <span class="ai-pill">AI</span>
         </div>
+        <div class="project-link">github链接：<a href="https://github.com/yujiangan/-PersonaHub" target="_blank" rel="noopener">https://github.com/yujiangan/-PersonaHub</a></div>
       </div>
       <div class="project-body">
         <div class="stack-row">
@@ -701,7 +700,7 @@
           <span class="tag brand">SSE</span>
         </div>
         <h4>项目背景：</h4>
-        <p>输入任意 GitHub 用户 ID（<a href="https://github.com/yujiangan/-PersonaHub" target="_blank" rel="noopener">github.com/yujiangan/-PersonaHub</a>），基于 <strong>LLM + ReAct 智能体</strong>拉取 profile / repos / events / stars，经<strong>多轮 Tool Calling + 流式报告生成</strong>，<strong>完整分析通常需数十秒</strong>；<strong>SSE 实时推送</strong>思考过程与 PRD 四章 Markdown 报告，面向 HR 筛选、候选人评估、社区初识等场景</p>
+        <p>输入任意 GitHub 用户 ID，基于 <strong>LLM + ReAct 智能体</strong>拉取 profile / repos / events / stars，经<strong>多轮 Tool Calling + 流式报告生成</strong>，<strong>完整分析通常需数十秒</strong>；<strong>SSE 实时推送</strong>思考过程与 PRD 四章 Markdown 报告，面向 HR 筛选、候选人评估、社区初识等场景</p>
         <h4>核心工作：</h4>
         <ul>
           <li><strong>独立撰写 PRD / TECH-DESIGN 并完成前后端实现</strong>，明确功能边界、异常路径与验收标准</li>
@@ -738,6 +737,7 @@
           <span class="title-text">食刻 Timetaste — AI 美食推荐微信小程序</span>
           <span class="ai-pill">AI</span>
         </div>
+        <div class="project-link">github链接：<a href="https://github.com/yujiangan/timetaste" target="_blank" rel="noopener">https://github.com/yujiangan/timetaste</a></div>
       </div>
       <div class="project-body">
         <div class="stack-row">
@@ -750,7 +750,7 @@
           <span class="tag brand">z-image-turbo</span>
         </div>
         <h4>项目背景：</h4>
-        <p>「今天吃什么」决策小程序（<a href="https://github.com/yujiangan/timetaste" target="_blank" rel="noopener">github.com/yujiangan/timetaste</a>），接入<strong>通义千问 DashScope</strong>，结合<strong>时间段 / 地理位置 / 采纳历史 / 上传菜单</strong>做个性化菜品推荐</p>
+        <p>「今天吃什么」决策小程序，接入<strong>通义千问 DashScope</strong>，结合<strong>时间段 / 地理位置 / 采纳历史 / 上传菜单</strong>做个性化菜品推荐</p>
         <h4>核心工作：</h4>
         <ul>
           <li><strong>AI 上下文工程</strong>（buildFoodRecommendContext）：整合早/午/茶/晚/夜宵时段、位置、<strong>最近 5 条采纳记录</strong>、SavedMenuList 动态拼装 Prompt</li>
@@ -786,6 +786,7 @@
           <span class="star">★</span>
           <span class="title-text">Imagedown — 图片批量下载工具</span>
         </div>
+        <div class="project-link">github链接：<a href="https://github.com/yujiangan/imagedown" target="_blank" rel="noopener">https://github.com/yujiangan/imagedown</a></div>
       </div>
       <div class="project-body">
         <div class="stack-row">
@@ -797,7 +798,7 @@
           <span class="tag brand">GitHub Actions</span>
         </div>
         <h4>项目背景：</h4>
-        <p>Node.js 图片爬虫 CLI（<a href="https://github.com/yujiangan/imagedown" target="_blank" rel="noopener">github.com/yujiangan/imagedown</a>），已发布 npm 包 <strong>@yujiangan/imagedown</strong>（v1.0.6），<strong>npx 一行命令</strong>从网页批量下载图片</p>
+        <p>Node.js 图片爬虫 CLI，已发布 npm 包 <strong>@yujiangan/imagedown</strong>（v1.0.6），<strong>npx 一行命令</strong>从网页批量下载图片</p>
         <h4>核心工作：</h4>
         <ul>
           <li><strong>TypeScript + Yargs</strong> 搭建 CLI：positional 参数（url / folder）、<strong>-c 并发数</strong>（默认 1）、help / strict 模式</li>
@@ -818,6 +819,19 @@
       <div class="shot-wrap"><div class="shot wide p3-1"><img src="./images/imagedown-1.png" alt="下载速度（CLI）" /></div><div class="shot-caption">下载速度（CLI）</div></div>
     </div>
   </article>
+
+  <!-- 个人理念（末尾） -->
+  <section class="card philosophy-card">
+    <h3>
+      <span class="ico">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 00-4 12.74V17a1 1 0 001 1h6a1 1 0 001-1v-2.26A7 7 0 0012 2zM9 21a1 1 0 001 1h4a1 1 0 001-1v-1H9v1z"/></svg>
+      </span>
+      个人理念
+    </h3>
+    <div class="quote">
+      <strong>代码</strong>是解决问题的工具，<strong>工程化</strong>是价值的保障，<strong>AI</strong> 让未来的开发更智能。
+    </div>
+  </section>
 
 
 </div>
