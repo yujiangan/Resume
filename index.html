@@ -575,6 +575,17 @@
       print-color-adjust: exact !important;
     }
 
+    /* 打印/PDF 强制保留重点加粗（中文字体打印时字重易丢失） */
+    strong, b,
+    .card ul.dotted strong,
+    .project-body strong,
+    .quote strong {
+      font-weight: 800 !important;
+      color: var(--text) !important;
+      font-synthesis: weight !important;
+      -webkit-text-stroke: 0.2px var(--text);
+    }
+
     .lightbox { display: none !important; }
   }
 </style>
