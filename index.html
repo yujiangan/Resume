@@ -359,6 +359,11 @@
     margin: 4px 0;
   }
   .project-body ul li { margin-bottom: 2px; line-height: 1.55; }
+  .project-body a {
+    color: var(--brand);
+    font-weight: 500;
+    text-decoration: none;
+  }
 
   /* ---------- Shots ---------- */
   .shots {
@@ -629,10 +634,10 @@
         专业技能亮点
       </h3>
       <ul class="dotted">
-        <li>具备 <strong>Vue3 / React 全栈开发</strong>能力，熟悉 <strong>TypeScript 工程化</strong>与 <strong>Node.js CLI</strong> 开发</li>
-        <li>深入实践 <strong>LLM 应用工程</strong>：<strong>ReAct Agent</strong>、<strong>Tool Calling</strong>、<strong>SSE 流式输出</strong>、<strong>多模态协同</strong></li>
-        <li>熟悉 <strong>ESLint / Prettier / lint-staged</strong> + <strong>GitHub Actions CI/CD</strong> 自动化工程</li>
-        <li><strong>独立完成</strong>多个项目从<strong>产品需求、技术设计到前后端落地</strong>的全流程</li>
+        <li>具备 <strong>React / 微信小程序 / Node.js CLI</strong> 开发能力，<strong>TypeScript</strong> 工程化实践</li>
+        <li>深入实践 <strong>LLM 应用工程</strong>：<strong>ReAct Agent</strong>、<strong>Tool Calling</strong>、<strong>SSE 流式</strong>、<strong>多模态 Prompt 编排</strong></li>
+        <li>熟悉 <strong>GitHub Actions</strong> 自动化发布（imagedown npm CI）、<strong>Vercel</strong> 部署</li>
+        <li><strong>独立负责</strong>需求文档、技术设计与<strong>端到端落地</strong>（PersonaHub / 食刻 / imagedown）</li>
       </ul>
     </div>
 
@@ -646,18 +651,14 @@
       <div class="tags">
         <span class="tag brand">TypeScript</span>
         <span class="tag brand">React</span>
-        <span class="tag brand">Vue3</span>
+        <span class="tag brand">微信小程序</span>
         <span class="tag brand">Node.js</span>
+        <span class="tag brand">DashScope</span>
         <span class="tag brand">SSE</span>
         <span class="tag brand">ReAct Agent</span>
         <span class="tag brand">Nitro</span>
-        <span class="tag brand">自动化/脚手架</span>
-        <span class="tag brand">Monorepo</span>
         <span class="tag brand">GitHub Actions</span>
         <span class="tag brand">Vercel</span>
-        <span class="tag brand">CI/CD</span>
-        <span class="tag brand">ESLint</span>
-        <span class="tag brand">Prettier</span>
       </div>
     </div>
 
@@ -700,23 +701,22 @@
           <span class="tag brand">SSE</span>
         </div>
         <h4>项目背景：</h4>
-        <p>输入任意 GitHub 用户 ID，基于 <strong>LLM + ReAct 智能体</strong>自动分析 timeline / repos / stars，<strong>几秒钟生成结构化技术画像报告</strong>，面向 HR 筛选、候选人评估、社区初识等场景</p>
+        <p>输入任意 GitHub 用户 ID（<a href="https://github.com/yujiangan/-PersonaHub" target="_blank" rel="noopener">github.com/yujiangan/-PersonaHub</a>），基于 <strong>LLM + ReAct 智能体</strong>拉取 profile / repos / events / stars，经<strong>多轮 Tool Calling + 流式报告生成</strong>，<strong>完整分析通常需数十秒</strong>；<strong>SSE 实时推送</strong>思考过程与 PRD 四章 Markdown 报告，面向 HR 筛选、候选人评估、社区初识等场景</p>
         <h4>核心工作：</h4>
         <ul>
-          <li><strong>独立完成 PRD、技术设计、前后端实现</strong>：撰写 PRD / TECH-DESIGN，明确功能边界、异常路径与验收标准</li>
-          <li>设计并实现 <strong>ReAct Agent 双阶段循环</strong>：工具阶段由 MiniMax 流式决策调用 GitHub 工具集，数据齐备后进入报告阶段按 Prompt 流式生成 Markdown 报告</li>
-          <li>构建 <strong>Tool Calling 工程</strong>：定义工具 JSON Schema、抽象 dispatch 调度层，封装 get_profile / get_repos / get_events / get_stars 四个 GitHub 工具</li>
-          <li>设计完整 <strong>SSE 事件协议</strong>（thinking_chunk / tool_start / tool_end / observation / report_chunk / report_done / error / done），前端 EventSource 命名事件分发，思考流与报告流互不打架</li>
-          <li>基于 <strong>Nitro 3</strong> 搭建后端 API，封装 GitHubClient：<strong>自动分页（最多 1000 条事件）</strong>、<strong>AbortController 10s 超时</strong>、403 / 5xx 指数退避重试、X-RateLimit-Remaining 区分限流类型</li>
-          <li>前端 <strong>React 18 + VitePlus</strong>，自定义 <strong>useAnalysis Hook</strong> 管理 SSE 连接，AgentStream 组件实时渲染思考过程与 Markdown 报告</li>
+          <li><strong>独立撰写 PRD / TECH-DESIGN 并完成前后端实现</strong>，明确功能边界、异常路径与验收标准</li>
+          <li><strong>ReAct Agent 双阶段循环</strong>：MiniMax 流式选工具 → 数据齐备后按 REPORT_PROMPT 流式生成 Markdown 报告</li>
+          <li><strong>Tool Calling 工程</strong>：JSON Schema 定义工具、dispatch 调度层，封装 get_profile / get_repos / get_events / get_stars</li>
+          <li><strong>SSE 命名事件协议</strong>（thinking_chunk / tool_* / report_chunk / report_done / error / done），前端 EventSource 分发，思考区与报告区并行展示</li>
+          <li><strong>GitHubClient 工程化</strong>：events·stars 最多 1000 条、repos 最多 500 条（遇空页即停）；单次 fetch <strong>10s 超时</strong>；403/500/502/503 <strong>退避重试最多 2 次</strong>；X-RateLimit-Remaining 区分限流</li>
+          <li><strong>React 18 + useAnalysis Hook + AgentStream</strong>：管理 SSE 连接，实时渲染思考流与 Markdown 报告</li>
         </ul>
         <h4>技术亮点：</h4>
         <ul>
-          <li>深度实践 LLM 应用工程：<strong>双阶段 Agent 编排</strong>、<strong>Tool Calling 工程</strong>、<strong>结构化输出</strong>、<strong>流式协议设计</strong>，具备完整的 AI Agent 产品落地能力</li>
-          <li><strong>系统级容错与降级</strong>：任一数据源失败不中断整次分析，<strong>全流程 60s 超时保护</strong></li>
-          <li>工程化细节扎实：单次请求 10s 超时 + AbortController、429/403/5xx 重试、字段筛选降低内存、流式不积累大数据</li>
-          <li><strong>前后端类型共享</strong>（src/shared/types.ts）+ 严格 TypeScript，跨端契约强一致</li>
-          <li><strong>Vercel 一键部署</strong>（Nitro vercel preset），代码 <strong>90.1% TypeScript</strong> 占比</li>
+          <li><strong>LLM Agent 全链路落地</strong>：双阶段编排、Tool Calling、PRD 四章结构化输出、流式协议设计</li>
+          <li><strong>容错降级</strong>：单数据源失败不中断分析；<strong>全流程上限 60s</strong>（MAX_EXECUTION_MS），超时提示「分析超时，请重试」</li>
+          <li><strong>性能与资源控制</strong>：字段筛选减内存、SSE 流式不堆积、前后端共享 types（src/shared/types.ts）</li>
+          <li><strong>Vercel 部署</strong>（Nitro vercel preset），仓库语言占比 <strong>90.1% TypeScript</strong></li>
         </ul>
       </div>
     </div>
@@ -750,22 +750,22 @@
           <span class="tag brand">z-image-turbo</span>
         </div>
         <h4>项目背景：</h4>
-        <p>解决"今天吃什么"的日常决策难题，基于 <strong>通义千问大模型</strong>打造的 AI 美食推荐小程序，结合时间、位置、用户偏好实现<strong>千人千面</strong>的智能推荐</p>
+        <p>「今天吃什么」决策小程序（<a href="https://github.com/yujiangan/timetaste" target="_blank" rel="noopener">github.com/yujiangan/timetaste</a>），接入<strong>通义千问 DashScope</strong>，结合<strong>时间段 / 地理位置 / 采纳历史 / 上传菜单</strong>做个性化菜品推荐</p>
         <h4>核心工作：</h4>
         <ul>
-          <li>设计并实现完整的 <strong>AI 上下文工程</strong>：根据时间段、地理位置、最近 5 条采纳历史、已上传菜单动态构建 Prompt，实现个性化推荐</li>
-          <li>接入通义千问<strong>多模态能力</strong>：<strong>qwen-turbo</strong> 文本推荐、<strong>qwen3-vl-plus</strong> 视觉识别菜单、<strong>z-image-turbo</strong> 生成配图，<strong>三模型协同</strong></li>
-          <li>抽象通用 <strong>callAI 调用层</strong>，支持文本 / 视觉双模式，统一处理 messages 拼装、动态 temperature、超时与错误降级</li>
-          <li>实现 AI 输出的 <strong>JSON Schema 约束与容错解析</strong>（直接解析 → 正则提取 → 友好报错），保证小程序端稳定取数</li>
-          <li>设计菜品图<strong>本地缓存</strong>（wx.setStorageSync）与"换一换"排除已推荐逻辑，<strong>降低 API 调用成本</strong>与等待时间</li>
-          <li>接入 <strong>wx.reportEvent 埋点体系</strong>，跟踪摇一摇、采纳、识别、保存等关键用户行为</li>
+          <li><strong>AI 上下文工程</strong>（buildFoodRecommendContext）：整合早/午/茶/晚/夜宵时段、位置、<strong>最近 5 条采纳记录</strong>、SavedMenuList 动态拼装 Prompt</li>
+          <li><strong>三模型分工</strong>：qwen-turbo 文本推荐、qwen3-vl-plus 菜单/菜品识图、z-image-turbo 生成菜品配图（1024×1024）</li>
+          <li>抽象 <strong>callAI 统一调用层</strong>：文本 / 视觉双模式，动态 temperature（识图 <strong>0.1</strong> / 推荐 <strong>0.7</strong>），超时 <strong>15s / 30s / 60s</strong></li>
+          <li><strong>JSON 格式约束 + 容错解析</strong>：strip markdown 代码块 → JSON.parse → 正则提取兜底，保证小程序端稳定取数</li>
+          <li><strong>成本优化</strong>：DishImageCache 本地缓存（wx.setStorageSync）；「换一换」传入 excludeDishes 避免重复推荐</li>
+          <li><strong>wx.reportEvent 埋点</strong>（utils/track.js）：摇一摇、换一换、采纳、菜单识别/保存等关键行为</li>
         </ul>
         <h4>技术亮点：</h4>
         <ul>
-          <li>深度实践 LLM 应用工程：<strong>上下文工程</strong>、<strong>Prompt 设计</strong>、<strong>结构化输出</strong>、<strong>多模态协同</strong>，具备完整的 AI 产品落地经验</li>
-          <li>合理运用 <strong>动态 temperature</strong>（视觉识别 0.1 / 文本推荐 0.7），针对不同任务优化模型表现</li>
-          <li><strong>TypeScript 严格类型</strong> + 模块化设计，API、埋点、业务逻辑分层清晰，易扩展易维护</li>
-          <li>关注成本与体验：<strong>AI 生图缓存命中</strong>、无重复推荐、超时分级控制（15s / 30s / 60s）</li>
+          <li><strong>LLM 产品化实践</strong>：Prompt 工程、结构化 JSON 输出、多模态协同、分级超时与错误降级</li>
+          <li><strong>业务闭环</strong>：首页摇一摇推荐 → 菜单页识图入库 → 历史采纳反哺上下文，形成偏好闭环</li>
+          <li>utils 分层清晰（api.js / track.js），页面覆盖 home / menu / history / about</li>
+          <li>仓库语言占比 <strong>TypeScript 68.6%</strong> + JavaScript，小程序原生 API 开发</li>
         </ul>
       </div>
     </div>
@@ -797,19 +797,20 @@
           <span class="tag brand">GitHub Actions</span>
         </div>
         <h4>项目背景：</h4>
-        <p>基于 <strong>Node.js</strong> 自研的图片爬虫 CLI，已发布至 npm（<strong>@yujiangan/imagedown</strong>），可通过 <strong>npx 一行命令</strong>批量下载网页图片</p>
+        <p>Node.js 图片爬虫 CLI（<a href="https://github.com/yujiangan/imagedown" target="_blank" rel="noopener">github.com/yujiangan/imagedown</a>），已发布 npm 包 <strong>@yujiangan/imagedown</strong>（v1.0.6），<strong>npx 一行命令</strong>从网页批量下载图片</p>
         <h4>核心工作：</h4>
         <ul>
-          <li>使用 <strong>Node.js + TypeScript</strong> 搭建 CLI，基于 <strong>Yargs</strong> 设计参数解析与帮助信息</li>
-          <li>使用 Node.js 原生 <strong>Fetch API</strong> 抓取网页与图片资源，支持自定义 User-Agent 提升站点兼容性</li>
-          <li>实现<strong>可配置并发下载</strong>（-c 参数），自动识别 JPG/PNG/GIF/WebP/SVG 等格式与 Data URI</li>
-          <li>配置 <strong>GitHub Actions</strong> 实现 tag 触发的<strong>自动化构建与 npm 发布</strong>流程</li>
+          <li><strong>TypeScript + Yargs</strong> 搭建 CLI：positional 参数（url / folder）、<strong>-c 并发数</strong>（默认 1）、help / strict 模式</li>
+          <li><strong>Fetch API 抓取 HTML</strong>，正则提取 img src，按 Content-Type / URL 识别 JPG/PNG/GIF/WebP/SVG 等格式</li>
+          <li>自研 <strong>concurrentTask 并发队列</strong>（worker + 任务池），控制下载并发、单任务失败不阻塞其余任务</li>
+          <li>配置 <strong>GitHub Actions</strong>（.github/workflows），tag 触发<strong>自动构建与 npm 发布</strong>；维护 CHANGELOG，<strong>6 个 Release</strong></li>
         </ul>
         <h4>技术亮点：</h4>
         <ul>
-          <li>深入使用 Node.js <strong>异步与并发模型</strong>，下载速度随并发数<strong>线性提升</strong>、稳定可控</li>
-          <li><strong>TypeScript 严格类型</strong> + 模块化设计，代码可维护性强、易扩展</li>
-          <li>完整的 <strong>npm 包工程化</strong>：bin 入口、版本管理、CHANGELOG 与多次稳定发布</li>
+          <li><strong>并发下载</strong>：-c 参数线性提升吞吐，README 实测 Bing 图片场景</li>
+          <li>内置 <strong>User-Agent / Referer</strong> 请求头，自动创建保存目录，提升站点兼容性</li>
+          <li>完整 <strong>npm 包工程化</strong>：bin 入口、prepublishOnly 构建、files 白名单发布 dist</li>
+          <li>仓库语言占比 <strong>98.4% TypeScript</strong></li>
         </ul>
       </div>
     </div>
