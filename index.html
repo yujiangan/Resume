@@ -113,12 +113,32 @@
   .contact {
     color: #5b6075;
     font-size: 16px;
-    display: flex; flex-wrap: wrap;
-    column-gap: 22px; row-gap: 4px;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: flex-start;
   }
-  .contact span { display: inline-flex; align-items: center; gap: 6px; }
-  .contact .ico-sm { color: var(--brand); }
+  .contact-item {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    column-gap: 8px;
+    align-items: center;
+    line-height: 1.5;
+  }
+  .contact .ico-sm {
+    width: 18px;
+    height: 18px;
+    color: var(--brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .contact .ico-sm svg {
+    width: 15px;
+    height: 15px;
+    display: block;
+  }
 
   /* ---------- Top 4 cards ---------- */
   .top-grid {
@@ -178,6 +198,12 @@
   }
 
   .edu-block { display: flex; flex-direction: column; gap: 6px; }
+  .edu-school-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
   .edu-school {
     font-weight: 700;
     font-size: 18px;
@@ -202,13 +228,13 @@
   .edu-degree {
     display: inline-flex;
     align-items: center;
-    align-self: flex-start;
     background: var(--brand-soft);
     color: var(--brand);
     font-size: 14.5px;
     padding: 2px 9px;
     border-radius: 999px;
     font-weight: 500;
+    flex-shrink: 0;
   }
   .edu-divider {
     height: 1px;
@@ -577,6 +603,26 @@
     }
     .header-info h1 { font-size: 27px !important; }
 
+    .contact {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+    }
+    .contact-item {
+      display: grid !important;
+      grid-template-columns: 18px 1fr !important;
+      column-gap: 8px !important;
+      align-items: center !important;
+      width: 100%;
+    }
+    .contact .ico-sm {
+      width: 18px !important;
+      height: 18px !important;
+    }
+    .contact .ico-sm svg {
+      width: 15px !important;
+      height: 15px !important;
+    }
+
     /* 打印专用：隐藏截图，项目改为单列文字 */
     .shots { display: none !important; }
     .project {
@@ -617,9 +663,18 @@
         <span class="badge">前端开发</span>
       </div>
       <div class="contact">
-        <span><span class="ico-sm">📞</span> 19836781920</span>
-        <span><span class="ico-sm">✉</span> y19836781920@outlook.com</span>
-        <span><span class="ico-sm">🔗</span> https://github.com/yujiangan</span>
+        <span class="contact-item">
+          <span class="ico-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.56.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.56 1 1 0 01-.25 1.01l-2.2 2.22z"/></svg></span>
+          19836781920
+        </span>
+        <span class="contact-item">
+          <span class="ico-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></span>
+          y19836781920@outlook.com
+        </span>
+        <span class="contact-item">
+          <span class="ico-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg></span>
+          https://github.com/yujiangan
+        </span>
       </div>
     </div>
     <div class="header-edu">
@@ -627,9 +682,11 @@
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm0 13l-7-3.82v3L12 19l7-3.82v-3L12 16z"/></svg>
         教育经历
       </div>
-      <div class="edu-school">河南农业大学</div>
+      <div class="edu-school-row">
+        <div class="edu-school">河南农业大学</div>
+        <span class="edu-degree">本科</span>
+      </div>
       <div class="edu-major">数据科学与大数据技术</div>
-      <span class="edu-degree">本科</span>
       <div class="edu-date">2023-09 ~ 2027-06</div>
     </div>
   </header>
@@ -641,13 +698,13 @@
         <span class="ico">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 4.84L20 7.27l-3.91 3.81.92 5.39L12 13.9l-5.01 2.57.92-5.39L4 7.27l5.61-.43L12 2z"/></svg>
         </span>
-        专业技能亮点
+        专业技能
       </h3>
       <ul class="dotted">
-        <li>具备 <strong>React / 微信小程序 / Node.js CLI</strong> 开发能力，<strong>TypeScript</strong> 工程化实践</li>
-        <li>深入实践 <strong>LLM 应用工程</strong>：<strong>ReAct Agent</strong>、<strong>Tool Calling</strong>、<strong>SSE 流式</strong>、<strong>多模态 Prompt 编排</strong></li>
-        <li>熟悉 <strong>GitHub Actions</strong> 自动化发布（imagedown npm CI）、<strong>Vercel</strong> 部署</li>
-        <li><strong>独立负责</strong>需求文档、技术设计与<strong>端到端落地</strong>（PersonaHub / 食刻 / imagedown）</li>
+        <li>具备 <strong>React / Vue / 微信小程序 / Node.js CLI</strong> 开发能力，<strong>全栈TypeScript</strong> 工程实践</li>
+        <li>深入实践 <strong>全栈 Agent 应用开发</strong>：<strong>ReAct Agent</strong>、<strong>Tool Calling</strong>、<strong>SSE 流式</strong>、<strong>多模态 Prompt 编排</strong></li>
+        <li>熟悉 <strong>GitHub Actions</strong> 自动化发布、<strong>Vercel</strong> 部署</li>
+        <li><strong>独立负责</strong>需求文档、技术设计与<strong>端到端落地</strong> </li>
       </ul>
     </div>
 
@@ -660,15 +717,12 @@
       </h3>
       <div class="tags">
         <span class="tag brand">TypeScript</span>
+        <span class="tag brand">Vue</span>
         <span class="tag brand">React</span>
         <span class="tag brand">微信小程序</span>
         <span class="tag brand">Node.js</span>
-        <span class="tag brand">DashScope</span>
-        <span class="tag brand">SSE</span>
         <span class="tag brand">ReAct Agent</span>
-        <span class="tag brand">Nitro</span>
-        <span class="tag brand">GitHub Actions</span>
-        <span class="tag brand">Vercel</span>
+        <span class="tag brand">CI/CD</span>
       </div>
     </div>
   </section>
@@ -686,24 +740,22 @@
           <span class="title-text">PersonaHub — AI 驱动的 GitHub 用户画像分析工具</span>
           <span class="ai-pill">AI</span>
         </div>
-        <div class="project-link">github链接：<a href="https://github.com/yujiangan/-PersonaHub" target="_blank" rel="noopener">https://github.com/yujiangan/-PersonaHub</a></div>
+        <div class="project-link"><a href="https://github.com/yujiangan/-PersonaHub" target="_blank" rel="noopener">https://github.com/yujiangan/-PersonaHub</a></div>
       </div>
       <div class="project-body">
         <div class="stack-row">
           <span class="stack-label">技术栈：</span>
           <span class="tag brand">TypeScript</span>
-          <span class="tag brand">React 18</span>
+          <span class="tag brand">React</span>
           <span class="tag brand">Nitro</span>
-          <span class="tag brand">MiniMax</span>
-          <span class="tag brand">ReAct Agent</span>
-          <span class="tag brand">Tool Calling</span>
+          <span class="tag brand">ai-sdk</span>
           <span class="tag brand">SSE</span>
         </div>
         <h4>项目背景：</h4>
-        <p>输入任意 GitHub 用户 ID，基于 <strong>LLM + ReAct 智能体</strong>拉取 profile / repos / events / stars，经<strong>多轮 Tool Calling + 流式报告生成</strong>，<strong>完整分析通常需数十秒</strong>；<strong>SSE 实时推送</strong>思考过程与 PRD 四章 Markdown 报告，面向 HR 筛选、候选人评估、社区初识等场景</p>
+        <p>输入任意 GitHub 用户 ID，基于 <strong>LLM + ReAct 智能体</strong>拉取 profile / repos / events / stars，经<strong>多轮 Tool Calling + 流式报告生成</strong>，<strong>SSE 实时推送</strong>思考过程与 Markdown 报告，面向 HR 筛选、候选人评估、社区初识等场景</p>
         <h4>核心工作：</h4>
         <ul>
-          <li><strong>独立撰写 PRD / TECH-DESIGN 并完成前后端实现</strong>，明确功能边界、异常路径与验收标准</li>
+          <li><strong>独立撰写 PRD / 技术方案 并完成前后端实现</strong>，明确功能边界、异常路径与验收标准</li>
           <li><strong>ReAct Agent 双阶段循环</strong>：MiniMax 流式选工具 → 数据齐备后按 REPORT_PROMPT 流式生成 Markdown 报告</li>
           <li><strong>Tool Calling 工程</strong>：JSON Schema 定义工具、dispatch 调度层，封装 get_profile / get_repos / get_events / get_stars</li>
           <li><strong>SSE 命名事件协议</strong>（thinking_chunk / tool_* / report_chunk / report_done / error / done），前端 EventSource 分发，思考区与报告区并行展示</li>
@@ -737,7 +789,7 @@
           <span class="title-text">食刻 Timetaste — AI 美食推荐微信小程序</span>
           <span class="ai-pill">AI</span>
         </div>
-        <div class="project-link">github链接：<a href="https://github.com/yujiangan/timetaste" target="_blank" rel="noopener">https://github.com/yujiangan/timetaste</a></div>
+        <div class="project-link"><a href="https://github.com/yujiangan/timetaste" target="_blank" rel="noopener">https://github.com/yujiangan/timetaste</a></div>
       </div>
       <div class="project-body">
         <div class="stack-row">
@@ -786,7 +838,7 @@
           <span class="star">★</span>
           <span class="title-text">Imagedown — 图片批量下载工具</span>
         </div>
-        <div class="project-link">github链接：<a href="https://github.com/yujiangan/imagedown" target="_blank" rel="noopener">https://github.com/yujiangan/imagedown</a></div>
+        <div class="project-link"><a href="https://github.com/yujiangan/imagedown" target="_blank" rel="noopener">https://github.com/yujiangan/imagedown</a></div>
       </div>
       <div class="project-body">
         <div class="stack-row">
