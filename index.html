@@ -752,22 +752,17 @@
           <span class="tag brand">SSE</span>
         </div>
         <h4>项目背景：</h4>
-        <p>输入任意 GitHub 用户 ID，基于 <strong>LLM + ReAct 智能体</strong>拉取 profile / repos / events / stars，经<strong>多轮 Tool Calling + 流式报告生成</strong>，<strong>SSE 实时推送</strong>思考过程与 Markdown 报告，面向 HR 筛选、候选人评估、社区初识等场景</p>
+        <p>输入任意 GitHub 用户 ID，基于 <strong>LLM + ReAct 智能体</strong>整合用户公开数据，经<strong>多轮分析 + 流式报告生成</strong>，实时呈现分析过程与 Markdown 报告，面向 HR 筛选、候选人评估、社区初识等场景</p>
         <h4>核心工作：</h4>
         <ul>
-          <li><strong>独立撰写 PRD / 技术方案 并完成前后端实现</strong>，明确功能边界、异常路径与验收标准</li>
-          <li><strong>ReAct Agent 双阶段循环</strong>：MiniMax 流式选工具 → 数据齐备后按 REPORT_PROMPT 流式生成 Markdown 报告</li>
-          <li><strong>Tool Calling 工程</strong>：JSON Schema 定义工具、dispatch 调度层，封装 get_profile / get_repos / get_events / get_stars</li>
-          <li><strong>SSE 命名事件协议</strong>（thinking_chunk / tool_* / report_chunk / report_done / error / done），前端 EventSource 分发，思考区与报告区并行展示</li>
-          <li><strong>GitHubClient 工程化</strong>：events·stars 最多 1000 条、repos 最多 500 条（遇空页即停）；单次 fetch <strong>10s 超时</strong>；403/500/502/503 <strong>退避重试最多 2 次</strong>；X-RateLimit-Remaining 区分限流</li>
-          <li><strong>React 18 + useAnalysis Hook + AgentStream</strong>：管理 SSE 连接，实时渲染思考流与 Markdown 报告</li>
+          <li><strong>独立完成 GitHub 用户画像分析工具从需求梳理、方案设计到前后端落地</strong>，实现用户输入账号后自动生成可读画像报告，并支持实时展示分析过程。</li>
         </ul>
         <h4>技术亮点：</h4>
         <ul>
-          <li><strong>LLM Agent 全链路落地</strong>：双阶段编排、Tool Calling、PRD 四章结构化输出、流式协议设计</li>
-          <li><strong>容错降级</strong>：单数据源失败不中断分析；<strong>全流程上限 60s</strong>（MAX_EXECUTION_MS），超时提示「分析超时，请重试」</li>
-          <li><strong>性能与资源控制</strong>：字段筛选减内存、SSE 流式不堆积、前后端共享 types（src/shared/types.ts）</li>
-          <li><strong>Vercel 部署</strong>（Nitro vercel preset），仓库语言占比 <strong>90.1% TypeScript</strong></li>
+          <li><strong>LLM Agent 全链路落地</strong>：围绕用户画像场景设计“数据理解 → 多源分析 → 报告生成”的智能体流程，将分散的 GitHub 公开信息转化为结构化候选人画像。</li>
+          <li><strong>实时分析体验</strong>：将长耗时分析拆解为可感知的流式反馈，让用户在等待过程中看到当前进度、分析思路与最终报告，降低工具使用的不确定感。</li>
+          <li><strong>稳定性与容错设计</strong>：针对外部数据不完整、请求失败、限流和超时等情况设计兜底策略，避免单个数据源异常导致整体分析中断。</li>
+          <li><strong>工程化交付</strong>：完成前后端类型约束、部署配置与线上访问链路，仓库语言占比 <strong>90.1% TypeScript</strong>。</li>
         </ul>
       </div>
     </div>
@@ -805,19 +800,14 @@
         <p>「今天吃什么」决策小程序，接入<strong>通义千问 DashScope</strong>，结合<strong>时间段 / 地理位置 / 采纳历史 / 上传菜单</strong>做个性化菜品推荐</p>
         <h4>核心工作：</h4>
         <ul>
-          <li><strong>AI 上下文工程</strong>（buildFoodRecommendContext）：整合早/午/茶/晚/夜宵时段、位置、<strong>最近 5 条采纳记录</strong>、SavedMenuList 动态拼装 Prompt</li>
-          <li><strong>三模型分工</strong>：qwen-turbo 文本推荐、qwen3-vl-plus 菜单/菜品识图、z-image-turbo 生成菜品配图（1024×1024）</li>
-          <li>抽象 <strong>callAI 统一调用层</strong>：文本 / 视觉双模式，动态 temperature（识图 <strong>0.1</strong> / 推荐 <strong>0.7</strong>），超时 <strong>15s / 30s / 60s</strong></li>
-          <li><strong>JSON 格式约束 + 容错解析</strong>：strip markdown 代码块 → JSON.parse → 正则提取兜底，保证小程序端稳定取数</li>
-          <li><strong>成本优化</strong>：DishImageCache 本地缓存（wx.setStorageSync）；「换一换」传入 excludeDishes 避免重复推荐</li>
-          <li><strong>wx.reportEvent 埋点</strong>（utils/track.js）：摇一摇、换一换、采纳、菜单识别/保存等关键行为</li>
+          <li><strong>独立完成 AI 美食推荐小程序的核心功能建设</strong>，实现基于时间、位置、历史偏好和菜单图片的个性化推荐，覆盖推荐、识图、采纳与分享等主要流程。</li>
         </ul>
         <h4>技术亮点：</h4>
         <ul>
-          <li><strong>LLM 产品化实践</strong>：Prompt 工程、结构化 JSON 输出、多模态协同、分级超时与错误降级</li>
-          <li><strong>业务闭环</strong>：首页摇一摇推荐 → 菜单页识图入库 → 历史采纳反哺上下文，形成偏好闭环</li>
-          <li>utils 分层清晰（api.js / track.js），页面覆盖 home / menu / history / about</li>
-          <li>仓库语言占比 <strong>TypeScript 68.6%</strong> + JavaScript，小程序原生 API 开发</li>
+          <li><strong>多模态 AI 能力融合</strong>：将文本推荐、菜单识别和菜品配图生成整合到同一产品流程中，使推荐结果更贴近真实就餐场景。</li>
+          <li><strong>个性化推荐闭环</strong>：把用户采纳历史、菜单内容和上下文信息沉淀为后续推荐依据，形成“推荐 → 采纳 → 反馈优化”的偏好闭环。</li>
+          <li><strong>稳定输出与体验兜底</strong>：对 AI 返回内容进行结构化约束和异常处理，结合超时控制、缓存与去重策略，提升小程序端取数稳定性和使用流畅度。</li>
+          <li><strong>产品行为洞察</strong>：围绕推荐、换菜、采纳、识图和保存等关键动作设计数据采集，为后续优化推荐效果和用户路径提供依据。</li>
         </ul>
       </div>
     </div>
@@ -853,17 +843,14 @@
         <p>Node.js 图片爬虫 CLI，已发布 npm 包 <strong>@yujiangan/imagedown</strong>（v1.0.6），<strong>npx 一行命令</strong>从网页批量下载图片</p>
         <h4>核心工作：</h4>
         <ul>
-          <li><strong>TypeScript + Yargs</strong> 搭建 CLI：positional 参数（url / folder）、<strong>-c 并发数</strong>（默认 1）、help / strict 模式</li>
-          <li><strong>Fetch API 抓取 HTML</strong>，正则提取 img src，按 Content-Type / URL 识别 JPG/PNG/GIF/WebP/SVG 等格式</li>
-          <li>自研 <strong>concurrentTask 并发队列</strong>（worker + 任务池），控制下载并发、单任务失败不阻塞其余任务</li>
-          <li>配置 <strong>GitHub Actions</strong>（.github/workflows），tag 触发<strong>自动构建与 npm 发布</strong>；维护 CHANGELOG，<strong>6 个 Release</strong></li>
+          <li><strong>独立开发并发布图片批量下载 CLI 工具</strong>，支持通过一行命令从网页提取并下载图片，完成从功能开发到 npm 包发布的完整交付。</li>
         </ul>
         <h4>技术亮点：</h4>
         <ul>
-          <li><strong>并发下载</strong>：-c 参数线性提升吞吐，README 实测 Bing 图片场景</li>
-          <li>内置 <strong>User-Agent / Referer</strong> 请求头，自动创建保存目录，提升站点兼容性</li>
-          <li>完整 <strong>npm 包工程化</strong>：bin 入口、prepublishOnly 构建、files 白名单发布 dist</li>
-          <li>仓库语言占比 <strong>98.4% TypeScript</strong></li>
+          <li><strong>批量下载效率优化</strong>：支持并发任务调度，在保证单个任务失败不影响整体流程的前提下提升下载吞吐。</li>
+          <li><strong>网页图片识别与兼容</strong>：面向常见网页图片格式和站点访问限制做适配，提升不同页面场景下的可用性。</li>
+          <li><strong>npm 包工程化交付</strong>：完成命令行入口、构建发布、版本记录和自动化发布流程，累计维护 <strong>6 个 Release</strong>。</li>
+          <li>仓库语言占比 <strong>98.4% TypeScript</strong>。</li>
         </ul>
       </div>
     </div>
