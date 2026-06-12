@@ -144,7 +144,7 @@
   .top-grid {
     margin-top: 14px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: 14px;
   }
   .card {
@@ -311,6 +311,10 @@
     margin-bottom: 14px;
     position: relative;
   }
+  .project.persona-project {
+    grid-template-columns: minmax(0, 1.12fr) minmax(260px, .88fr);
+    gap: 18px;
+  }
   .project-head {
     display: flex;
     flex-direction: column;
@@ -401,6 +405,56 @@
     margin-top: 14px;
   }
 
+  /* ---------- Experience ---------- */
+  .experience-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 14px;
+  }
+  .experience-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: start;
+    margin-bottom: 8px;
+  }
+  .experience-company {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .experience-meta {
+    margin-top: 3px;
+    color: var(--text-2);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .experience-date {
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    background: var(--brand-soft);
+    color: var(--brand);
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .experience-list {
+    padding-left: 16px;
+    margin: 6px 0 0;
+    color: var(--text-2);
+    font-size: 16px;
+  }
+  .experience-list li {
+    margin-bottom: 3px;
+    line-height: 1.55;
+  }
+
   /* ---------- Shots ---------- */
   .shots {
     display: grid;
@@ -448,6 +502,10 @@
     grid-template-columns: 1fr;
     gap: 10px;
     align-content: start;
+  }
+  .persona-project .shots.shots-col4 {
+    width: 88%;
+    justify-self: center;
   }
   .shots.shots-col4 .shot {
     aspect-ratio: 16 / 10;
@@ -565,6 +623,9 @@
   @media (max-width: 900px) {
     .top-grid { grid-template-columns: 1fr; }
     .project { grid-template-columns: 1fr; }
+    .project.persona-project { grid-template-columns: 1fr; }
+    .persona-project .shots.shots-col4 { width: 100%; }
+    .experience-head { grid-template-columns: 1fr; gap: 6px; }
     .shots { grid-template-columns: repeat(2, 1fr); }
     .header { flex-wrap: wrap; }
     .header-edu {
@@ -691,7 +752,7 @@
     </div>
   </header>
 
-  <!-- Top 2 cards -->
+  <!-- Professional skills -->
   <section class="top-grid">
     <div class="card">
       <h3>
@@ -701,43 +762,44 @@
         专业技能
       </h3>
       <ul class="dotted">
-        <li>具备 <strong>React / Vue / 微信小程序 / Node.js CLI</strong> 开发能力，<strong>全栈TypeScript</strong> 工程实践</li>
-        <li>深入实践 <strong>全栈 Agent 应用开发</strong>：<strong>ReAct Agent</strong>、<strong>Tool Calling</strong>、<strong>SSE 流式</strong>、<strong>多模态 Prompt 编排</strong></li>
-        <li>熟悉 <strong>GitHub Actions</strong> 自动化发布、<strong>Vercel</strong> 部署</li>
-        <li><strong>独立负责</strong>需求文档、技术设计与<strong>端到端落地</strong> </li>
+        <li>熟悉 <strong>React / Vue / TypeScript / 微信小程序</strong> 等前端技术体系，具备<strong>独立完成前端业务模块与产品交互落地</strong>的能力</li>
+        <li>深入实践 <strong>全栈 Agent 应用开发</strong>，理解 <strong>Tool Calling / SSE 流式交互 / 多模态 Prompt 编排</strong> 等 AI 应用开发模式</li>
+        <li>理解<strong>前端稳定性与体验优化体系</strong>，关注<strong>异常兜底、性能优化与用户感知体验</strong></li>
+        <li>具备扎实的<strong>计算机基础</strong>，熟悉<strong>数据结构与算法、计算机网络、浏览器运行机制</strong>等基础知识</li>
+        <li>理解<strong>前端工程化</strong>建设，熟悉 <strong>Git 协作、Vite 构建、CI/CD、Vercel / GitHub Pages</strong> 等部署发布流程</li>
+        <li>熟悉 <strong>AI Coding</strong> 开发流程，理解<strong>规划-执行分离</strong>的协作模式，能够使用 <strong>Superpowers / Agent Skills</strong> 等方法完成需求拆解、技术方案设计、分步实施与代码审查</li>
       </ul>
     </div>
+  </section>
 
-    <div class="card">
-      <h3>
-        <span class="ico">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        </span>
-        技术栈概览
-      </h3>
-      <div class="tags">
-        <span class="tag brand">TypeScript</span>
-        <span class="tag brand">Vue</span>
-        <span class="tag brand">React</span>
-        <span class="tag brand">微信小程序</span>
-        <span class="tag brand">Node.js</span>
-        <span class="tag brand">ReAct Agent</span>
-        <span class="tag brand">CI/CD</span>
+  <!-- Internship -->
+  <h2 class="section-title">实习经历</h2>
+  <section class="experience-card">
+    <div class="experience-head">
+      <div>
+        <h3 class="experience-company">许昌合创信息技术有限责任公司</h3>
+        <div class="experience-meta"><strong>前端工程师实习生</strong>｜许昌</div>
       </div>
+      <div class="experience-date">2025-01 ~ 2025-03</div>
     </div>
+    <ul class="experience-list">
+      <li><strong>参与会员管理类小程序及后台管理系统的前端开发</strong>，负责部分业务页面搭建、表单录入、列表展示、筛选查询和基础交互逻辑实现。</li>
+      <li><strong>小程序端基于 Vue2 + uni-app 开发</strong>，参与入会申请、社会活动等模块，完成表单校验、活动信息展示、接口联调和跨端适配。</li>
+      <li><strong>管理后台基于 Vue3 + TypeScript + Element Plus 开发</strong>，参与会员信息、单位会员等管理页面，完成表格分页、条件筛选、弹窗表单、状态更新等后台常见业务能力。</li>
+    </ul>
   </section>
 
   <!-- Projects -->
   <h2 class="section-title">项目经历</h2>
 
   <!-- Project 1 -->
-  <article class="project">
+  <article class="project persona-project">
     <div class="project-date">2026-03 ~ 至今</div>
     <div class="project-text">
       <div class="project-head">
         <div class="project-title">
           <span class="star">★</span>
-          <span class="title-text">PersonaHub — AI 驱动的 GitHub 用户画像分析工具</span>
+          <span class="title-text">AI 驱动的 GitHub 用户画像分析工具</span>
           <span class="ai-pill">AI</span>
         </div>
         <div class="project-link"><a href="https://github.com/yujiangan/-PersonaHub" target="_blank" rel="noopener">https://github.com/yujiangan/-PersonaHub</a></div>
@@ -747,22 +809,24 @@
           <span class="stack-label">技术栈：</span>
           <span class="tag brand">TypeScript</span>
           <span class="tag brand">React</span>
+          <span class="tag brand">Vite+</span>
           <span class="tag brand">Nitro</span>
-          <span class="tag brand">ai-sdk</span>
+          <span class="tag brand">大模型 API</span>
           <span class="tag brand">SSE</span>
         </div>
         <h4>项目背景：</h4>
-        <p>输入任意 GitHub 用户 ID，基于 <strong>LLM + ReAct 智能体</strong>整合用户公开数据，经<strong>多轮分析 + 流式报告生成</strong>，实时呈现分析过程与 Markdown 报告，面向 HR 筛选、候选人评估、社区初识等场景</p>
+        <p>面向 <strong>HR 筛选、候选人评估和技术背景调研</strong> 场景，自动生成 <strong>GitHub 用户技术画像报告</strong>，帮助用户快速判断候选人的<strong>技术方向、开源活跃度与近期关注领域</strong>。</p>
         <h4>核心工作：</h4>
         <ul>
-          <li><strong>独立完成 GitHub 用户画像分析工具从需求梳理、方案设计到前后端落地</strong>，实现用户输入账号后自动生成可读画像报告，并支持实时展示分析过程。</li>
+          <li><strong>独立完成 GitHub 用户画像分析工具从 PRD、技术设计、Agent 工具链到前端流式界面的落地</strong>，使用 Superpowers 拆解流式改造方案和任务计划，按小步骤约束 AI coding 并补充关键测试。</li>
         </ul>
         <h4>技术亮点：</h4>
         <ul>
-          <li><strong>LLM Agent 全链路落地</strong>：围绕用户画像场景设计“数据理解 → 多源分析 → 报告生成”的智能体流程，将分散的 GitHub 公开信息转化为结构化候选人画像。</li>
-          <li><strong>实时分析体验</strong>：将长耗时分析拆解为可感知的流式反馈，让用户在等待过程中看到当前进度、分析思路与最终报告，降低工具使用的不确定感。</li>
-          <li><strong>稳定性与容错设计</strong>：针对外部数据不完整、请求失败、限流和超时等情况设计兜底策略，避免单个数据源异常导致整体分析中断。</li>
-          <li><strong>工程化交付</strong>：完成前后端类型约束、部署配置与线上访问链路，仓库语言占比 <strong>90.1% TypeScript</strong>。</li>
+          <li><strong>技术栈选择</strong>：前端采用 <strong>React + TypeScript</strong> 管理流式状态与工具卡片，服务端采用 <strong>Nitro API Routes</strong> 隔离 GitHub / LLM Token；长连接场景选择 <strong>SSE</strong>，减少轮询开销并提升实时反馈。</li>
+          <li><strong>流式体验改造</strong>：对大模型流式响应进行<strong>标准化封装</strong>，前端实现 <strong>Markdown 流式渲染与状态同步方案</strong>，配合智能滚动、工具状态展示和复制报告能力，提升长耗时分析场景下的<strong>用户感知体验</strong>。</li>
+          <li><strong>稳定性与防卡死</strong>：围绕大模型接口、GitHub API、限流和网络波动设计<strong>超时控制、失败重试、异常兜底和完成态收敛机制</strong>，避免外部接口异常导致页面长时间无响应。</li>
+          <li><strong>Agent 工程化</strong>：抽象<strong>工具调用协议与统一执行层</strong>，规范工具入参、执行结果、错误返回和过程日志，并通过迭代上限约束 Agent 行为，降低循环调用和不可控输出风险。</li>
+          <li><strong>质量保障</strong>：围绕<strong>流式解析、接口容错、SSE 通信和工具分发</strong>补充关键测试用例，保证核心链路在后续模型与工具迭代中具备<strong>可验证性和可维护性</strong>。</li>
         </ul>
       </div>
     </div>
@@ -781,7 +845,7 @@
       <div class="project-head">
         <div class="project-title">
           <span class="star">★</span>
-          <span class="title-text">食刻 Timetaste — AI 美食推荐微信小程序</span>
+          <span class="title-text">AI 美食推荐微信小程序 — 食选家（微信搜索食选家打开）</span>
           <span class="ai-pill">AI</span>
         </div>
         <div class="project-link"><a href="https://github.com/yujiangan/timetaste" target="_blank" rel="noopener">https://github.com/yujiangan/timetaste</a></div>
@@ -791,23 +855,21 @@
           <span class="stack-label">技术栈：</span>
           <span class="tag brand">微信小程序</span>
           <span class="tag brand">TypeScript</span>
-          <span class="tag brand">通义千问 DashScope</span>
-          <span class="tag brand">qwen-turbo</span>
-          <span class="tag brand">qwen3-vl-plus</span>
-          <span class="tag brand">z-image-turbo</span>
+          <span class="tag brand">千问大模型</span>
         </div>
         <h4>项目背景：</h4>
-        <p>「今天吃什么」决策小程序，接入<strong>通义千问 DashScope</strong>，结合<strong>时间段 / 地理位置 / 采纳历史 / 上传菜单</strong>做个性化菜品推荐</p>
+        <p><strong>食选家决策小程序</strong>，基于微信小程序原生能力接入 <strong>通义千问 DashScope</strong>，将文本推荐、菜单识别和菜品配图串成<strong>移动端闭环</strong>，结合<strong>时间段 / 地理位置 / 采纳历史 / 上传菜单</strong>做<strong>个性化菜品推荐</strong>。</p>
         <h4>核心工作：</h4>
         <ul>
-          <li><strong>独立完成 AI 美食推荐小程序的核心功能建设</strong>，实现基于时间、位置、历史偏好和菜单图片的个性化推荐，覆盖推荐、识图、采纳与分享等主要流程。</li>
+          <li><strong>独立完成小程序推荐、菜单识别、历史记录与行为埋点等核心流程</strong>，覆盖从触发推荐、AI 返回、采纳 / 换菜到偏好沉淀的完整用户路径。</li>
         </ul>
         <h4>技术亮点：</h4>
         <ul>
-          <li><strong>多模态 AI 能力融合</strong>：将文本推荐、菜单识别和菜品配图生成整合到同一产品流程中，使推荐结果更贴近真实就餐场景。</li>
-          <li><strong>个性化推荐闭环</strong>：把用户采纳历史、菜单内容和上下文信息沉淀为后续推荐依据，形成“推荐 → 采纳 → 反馈优化”的偏好闭环。</li>
-          <li><strong>稳定输出与体验兜底</strong>：对 AI 返回内容进行结构化约束和异常处理，结合超时控制、缓存与去重策略，提升小程序端取数稳定性和使用流畅度。</li>
-          <li><strong>产品行为洞察</strong>：围绕推荐、换菜、采纳、识图和保存等关键动作设计数据采集，为后续优化推荐效果和用户路径提供依据。</li>
+          <li><strong>技术栈选择</strong>：使用 <strong>微信小程序 + TypeScript</strong> 贴合移动端入口和系统能力，按任务拆分 qwen-turbo 文本推荐、qwen3-vl-plus 菜单识别、z-image-turbo 菜品配图。</li>
+          <li><strong>体验优化</strong>：AI 请求与骰子动画、分阶段 loading 文案并行执行，展示<strong>时间分析 / 位置 / 偏好 / 菜单匹配</strong>过程，降低等待焦虑；同时设计<strong>错误卡片、重试推荐、权限兜底和结果卡片动效</strong>。</li>
+          <li><strong>个性化推荐闭环</strong>：记录用户的<strong>采纳 / 跳过行为、上传菜单和位置信息</strong>，换一换时避免重复推荐，形成<strong>“推荐 → 采纳 / 跳过 → 下次优化”</strong>的偏好闭环。</li>
+          <li><strong>稳定输出与性能兜底</strong>：针对文本推荐、菜单识别和图片生成等不同耗时链路设计分层超时、结构化解析兜底、图片缓存与压缩策略；图片生成失败时降级为默认占位展示，保证推荐文字主流程稳定可用。</li>
+          <li><strong>产品行为洞察</strong>：使用 wx.reportEvent 采集<strong>推荐、换菜、采纳、菜单上传 / 识别 / 保存</strong>等关键动作，为后续优化推荐效果和用户路径提供依据。</li>
         </ul>
       </div>
     </div>
@@ -816,46 +878,6 @@
       <div class="shot-wrap"><div class="shot p2-2"><img src="./images/timetaste-2.jpg" alt="结果展示页" /></div><div class="shot-caption">结果展示页</div></div>
       <div class="shot-wrap"><div class="shot p2-3"><img src="./images/timetaste-3.jpg" alt="星品列表" /></div><div class="shot-caption">星品列表</div></div>
       <div class="shot-wrap"><div class="shot p2-4"><img src="./images/timetaste-4.jpg" alt="分享页" /></div><div class="shot-caption">分享页</div></div>
-    </div>
-  </article>
-
-  <!-- Project 3 -->
-  <article class="project">
-    <div class="project-date">2025-09 ~ 2025-10</div>
-    <div class="project-text">
-      <div class="project-head">
-        <div class="project-title">
-          <span class="star">★</span>
-          <span class="title-text">Imagedown — 图片批量下载工具</span>
-        </div>
-        <div class="project-link"><a href="https://github.com/yujiangan/imagedown" target="_blank" rel="noopener">https://github.com/yujiangan/imagedown</a></div>
-      </div>
-      <div class="project-body">
-        <div class="stack-row">
-          <span class="stack-label">技术栈：</span>
-          <span class="tag brand">Node.js</span>
-          <span class="tag brand">TypeScript</span>
-          <span class="tag brand">Fetch API</span>
-          <span class="tag brand">Yargs</span>
-          <span class="tag brand">GitHub Actions</span>
-        </div>
-        <h4>项目背景：</h4>
-        <p>Node.js 图片爬虫 CLI，已发布 npm 包 <strong>@yujiangan/imagedown</strong>（v1.0.6），<strong>npx 一行命令</strong>从网页批量下载图片</p>
-        <h4>核心工作：</h4>
-        <ul>
-          <li><strong>独立开发并发布图片批量下载 CLI 工具</strong>，支持通过一行命令从网页提取并下载图片，完成从功能开发到 npm 包发布的完整交付。</li>
-        </ul>
-        <h4>技术亮点：</h4>
-        <ul>
-          <li><strong>批量下载效率优化</strong>：支持并发任务调度，在保证单个任务失败不影响整体流程的前提下提升下载吞吐。</li>
-          <li><strong>网页图片识别与兼容</strong>：面向常见网页图片格式和站点访问限制做适配，提升不同页面场景下的可用性。</li>
-          <li><strong>npm 包工程化交付</strong>：完成命令行入口、构建发布、版本记录和自动化发布流程，累计维护 <strong>6 个 Release</strong>。</li>
-          <li>仓库语言占比 <strong>98.4% TypeScript</strong>。</li>
-        </ul>
-      </div>
-    </div>
-    <div class="shots shots-single">
-      <div class="shot-wrap"><div class="shot wide p3-1"><img src="./images/imagedown-1.png" alt="下载速度（CLI）" /></div><div class="shot-caption">下载速度（CLI）</div></div>
     </div>
   </article>
 
